@@ -1,37 +1,10 @@
 [![Ruby](https://github.com/robturtle/backend/workflows/Ruby/badge.svg)](https://github.com/robturtle/backend/actions?query=workflow%3ARuby)
 
-# backend-rails
+# Side Projects Incubator
 
-This is a **scaffold** to boost your speed on your new projects. It's a bundle of best practices for developing and it consists **a lot of** automations.
+Need Project Introduction
 
-## Features
-
-### Run checks before your every git commit
-
-Powered by `overcommit`, whenever you try to create a new git commit, it will run several checks to ensure that your code is in a good state.
-
-Example:
-
-```shell
-$ git commit -m 'Add some ruby file'
-Running pre-commit hooks
-Check for "token" strings.....................................[FixMe] OK
-Run SolargraphTypeCheck.........................[SolargraphTypeCheck] OK
-Run Rubocop.................................................[Rubocop] OK
-
-✓ All pre-commit hooks passed
-
-Running commit-msg hooks
-Check text width..........................................[TextWidth] OK
-
-✓ All commit-msg hooks passed
-```
-
-### Continuous Integration
-
-Powered by `GitHub Actions`, we can run `CI/CD` inside the GitHub. Yes we no longer have to setup a separate CI service anymore!
-
-Whenever **a commit is pushed** to the GitHub or whenever **a PR is created**, the CI will run.
+## Developing
 
 ### Continuous Deployment
 
