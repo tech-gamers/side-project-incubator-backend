@@ -270,13 +270,11 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  unless Rails.env.test?
-    env = Rails.env.production? ? :prod : :dev
-    config.omniauth :github,
-                    Rails.application.credentials&.github&.dig(:oauth, env, :id),
-                    Rails.application.credentials&.github&.dig(:oauth, env, :secret),
-                    scope: 'auth'
-  end
+  env = Rails.env.production? ? :prod : :dev
+  config.omniauth :github,
+                  Rails.application.credentials&.github&.dig(:oauth, env, :id),
+                  Rails.application.credentials&.github&.dig(:oauth, env, :secret),
+                  scope: 'auth'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
