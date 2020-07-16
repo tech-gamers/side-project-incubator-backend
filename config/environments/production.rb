@@ -85,6 +85,12 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  # Monitoring
+  Raven.configure do |config|
+    config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)
+    config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+  end
+
   # Inserts middleware to perform automatic connection switching.
   # The `database_selector` hash is used to pass options to the DatabaseSelector
   # middleware. The `delay` is used to determine how long to wait after a write
