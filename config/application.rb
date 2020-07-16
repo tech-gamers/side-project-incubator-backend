@@ -35,9 +35,16 @@ module Backend
     config.hosts << 'liu-backend.com'
     config.hosts << 'rails.liu-backend.com'
 
+    # Logging
     config.log_level = ENV.fetch('LOG_LEVEL', :debug)
 
-    # Don't generate system test files.
+    # Monitoring
+    Raven.configure do |config|
+      config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)
+      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+    end
+
+    # Tests
     config.generators.system_tests = nil
   end
 end
