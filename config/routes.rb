@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  namespace :api, defaults: { format: 'json' }, except: %i[new edit] do
+    resources :users
+  end
+
   root to: 'pages#home'
 
   as :auth do
@@ -10,6 +14,4 @@ Rails.application.routes.draw do
              controllers: {
                omniauth_callbacks: 'callbacks/omniauth', sessions: 'sessions'
              }
-
-  resources :users
 end
