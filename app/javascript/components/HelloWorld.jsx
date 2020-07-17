@@ -4,7 +4,7 @@ class HelloWorld extends React.Component {
   render() {
     return (
       <p>
-        Greeting: {this.props.greeting}
+        From React: {this.props.greeting}!
       </p>
     );
   }
