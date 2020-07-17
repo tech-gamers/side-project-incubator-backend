@@ -29,6 +29,9 @@ module Backend
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # Frontend
+    config.react.server_renderer = %w[jsx js tsx ts]
+
     # Hosts
     config.hosts << "localhost"
     config.hosts << 'tech-gamers.live'
