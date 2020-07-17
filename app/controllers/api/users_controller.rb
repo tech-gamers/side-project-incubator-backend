@@ -4,7 +4,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = current_auth.user
     if @user.id.to_s != params[:id]
-      render json: {}, status: :unauthorized
+      render json: {}, status: :forbidden
     else
       render json: @user
     end
