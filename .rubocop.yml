@@ -55,7 +55,7 @@ Style/BisectedAttrAccessor:
 Style/ClassAndModuleChildren:
   Enabled: true
   AutoCorrect: true
-  EnforcedStyle: nested
+  EnforcedStyle: compact
 
 Style/Documentation:
   Enabled: false
