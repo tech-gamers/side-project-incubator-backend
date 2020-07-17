@@ -14,6 +14,6 @@ Rails.application.routes.draw do
   # Authentication
   devise_for :auths,
              controllers: {
-               omniauth_callbacks: 'callbacks/omniauth'
+               omniauth_callbacks: 'omniauth'
              }
 end
