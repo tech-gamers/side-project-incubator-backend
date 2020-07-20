@@ -31,6 +31,7 @@ module Backend
 
     # Hosts
     config.hosts << "localhost"
+    config.hosts << "api.tech-gamers.live"
     config.hosts << 'tech-gamers.live'
     config.hosts << 'liu-backend.com'
     config.hosts << 'rails.liu-backend.com'
