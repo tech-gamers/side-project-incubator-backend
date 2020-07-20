@@ -10,6 +10,11 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
+  config.session_store :cookie_store,
+                       key: Rails.application.secret_key_base,
+                       domain: :all,
+                       tld_length: 2
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
@@ -46,9 +51,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Prepend all log lines with the following tags.
-  config.log_tags = %i[request_id]
-
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
 
@@ -68,6 +70,9 @@ Rails.application.configure do
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
+
+  # Prepend all log lines with the following tags.
+  config.log_tags = %i[request_id]
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
