@@ -33,6 +33,16 @@ module Backend
     # https://stackoverflow.com/a/37174557/2214973
     # config.exceptions_app = routes
 
+    # API
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 methods: %i[get patch put delete post options]
+      end
+    end
+
     # Hosts
     config.hosts << "localhost"
     config.hosts << "api.tech-gamers.live"

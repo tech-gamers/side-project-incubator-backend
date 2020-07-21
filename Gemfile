@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 # API
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'rack-cors'
 
 # Authentication
 gem 'devise'
