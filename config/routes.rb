@@ -23,4 +23,6 @@ Rails.application.routes.draw do
   api_resources :users do
     api_resources :auths, except: %i[create]
   end
+
+  match '*unmatched', to: 'errors#not_found', via: :all
 end

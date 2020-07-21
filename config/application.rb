@@ -29,6 +29,10 @@ module Backend
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # Errors
+    # https://stackoverflow.com/a/37174557/2214973
+    # config.exceptions_app = routes
+
     # Hosts
     config.hosts << "localhost"
     config.hosts << "api.tech-gamers.live"
