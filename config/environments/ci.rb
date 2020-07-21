@@ -14,6 +14,12 @@ Rails.application.configure do
   # preloads Rails for running tests, you may have to set it to true.
   config.eager_load = true
 
+  # Monitoring
+  Raven.configure do |config|
+    config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)
+    config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+  end
+
   # Configure public file server for tests with Cache-Control for performance.
   config.public_file_server.enabled = true
   config.public_file_server.headers = {

@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
     if result.present?
       render({ json: {} }.merge(result))
     else
-      Raven.capture_exception(err)
+      Reporter.capture_exception(err)
       render json: {}, status: :internal_server_error
     end
   end
