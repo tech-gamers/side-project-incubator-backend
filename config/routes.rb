@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
-  root to: 'pages#home'
-
-  as :auth do
-    get 'sign_in', to: 'sessions#new', as: :new_session
-  end
-  get 'sign_up', to: 'pages#sign_up'
-
   devise_for :auths,
              controllers: {
-               omniauth_callbacks: 'callbacks/omniauth', sessions: 'sessions'
+               omniauth_callbacks: 'omniauth'
              }
 
-  resources :users
+  delete 'logout', to: '/devise/sessions#destroy'
+
+  resources :users do
+    resources :auths, only: %i[show index destroy]
+  end
 end

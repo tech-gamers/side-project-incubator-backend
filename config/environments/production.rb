@@ -15,6 +15,12 @@ Rails.application.configure do
                        domain: :all,
                        tld_length: 2
 
+  # Monitoring
+  Raven.configure do |config|
+    config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)
+    config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
+  end
+
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local = false
   config.action_controller.perform_caching = true
