@@ -2,9 +2,11 @@ class UsersController < ApplicationController
   before_action :authenticate_auth!
 
   def show
-    @user = current_auth.user
-    if @user.id.to_s != params[:id]
+    @user = User.find(params[:id])
+    if @user.id != current_auth.user_id
       render json: {}, status: :forbidden
+    else
+      render json: @user
     end
   end
 end
