@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     if @user.id != current_auth.user_id
       render json: {}, status: :forbidden
     else
-      render json: @user
+      render json: @user, serializer: UserSerializer
     end
   end
 end

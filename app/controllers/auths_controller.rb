@@ -3,7 +3,7 @@ class AuthsController < ApplicationController
 
   def index
     @user = User.find(params[:user_id])
-    render json: @user.auths
+    render json: @user.auths, each_serializer: AuthSerializer
   end
 
   def destroy
