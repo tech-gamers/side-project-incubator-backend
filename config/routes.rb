@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     }
     # this will be changed in Rails 6.1
     if args.length.positive? && args.last.is_a?(Hash)
-      args.last.merge!(defaults)
+      args[-1] = defaults.merge(args.last)
     else
       args << defaults
     end
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   api_resources :users do
-    api_resources :auths, except: %i[create]
+    api_resources :auths, only: %i[index destroy]
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all
