@@ -4,8 +4,6 @@ class Auth < ApplicationRecord
          :lockable,
          :omniauthable,
          # OAuth
-         :rememberable,
-         :registerable,
          :timeoutable,
          :trackable # allow signing up new users
 
