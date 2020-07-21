@@ -66,6 +66,7 @@ group :tools do
   gem 'bundler-audit', require: false
 
   # DEV tools
+  gem 'annotate', require: false
   gem 'overcommit', require: false
   gem 'solargraph', require: false
 
