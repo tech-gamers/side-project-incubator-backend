@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
 
   rescue_from Exception, with: :error_handler
 
+  protected
+
+  def authenticate
+    unless auth_signed_in?
+      render json: {}, status: :unauthorized
+    end
+  end
+
   private
 
   def process(action, *args, &block)

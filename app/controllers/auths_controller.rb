@@ -1,5 +1,5 @@
 class AuthsController < ApplicationController
-  before_action :authenticate_auth!
+  before_action :authenticate
 
   def index
     @user = User.find(params[:user_id])
