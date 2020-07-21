@@ -25,8 +25,14 @@ class Auth < ApplicationRecord
   belongs_to :user, optional: true
 
   before_validation lambda {
-    self.user = User.create!(name: name, avatar_url: avatar_url)
+    self.user = User.create!(name: name, email: email, avatar_url: avatar_url)
   }, if: -> { !user_id }
 
   validates :user_id, presence: true
+
+  after_create lambda {
+    user.name ||= name
+    user.email ||= email
+    user.avatar_url ||= avatar_url
+  }
 end
