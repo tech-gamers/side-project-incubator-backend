@@ -28,6 +28,9 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+# API
+gem 'active_model_serializers', '~> 0.10.0'
+
 # Authentication
 gem 'devise'
 gem 'omniauth'
