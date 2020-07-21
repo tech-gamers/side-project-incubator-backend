@@ -13,5 +13,6 @@ class UserSerializer < ActiveModel::Serializer
   attributes :id,
              :name,
              :email,
-             :avatar_url
+             :avatar_url,
+             :created_at
 end
