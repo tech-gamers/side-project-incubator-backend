@@ -34,11 +34,9 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Auth < ApplicationRecord
+  # database_auth is only to provide session
   devise :database_authenticatable,
-         # to provide sessions
-         :lockable,
          :omniauthable,
-         # OAuth
          :timeoutable,
          :trackable # allow signing up new users
 
