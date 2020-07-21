@@ -15,10 +15,11 @@ Rails.application.routes.draw do
 
   devise_for :auths,
              controllers: {
-               omniauth_callbacks: 'omniauth'
+               omniauth_callbacks: 'omniauth',
+               sessions: 'sessions'
              }
 
-  delete 'logout', to: 'devise/sessions#destroy'
+  delete 'logout', to: 'sessions#destroy'
 
   api_resources :users do
     api_resources :auths, except: %i[create]

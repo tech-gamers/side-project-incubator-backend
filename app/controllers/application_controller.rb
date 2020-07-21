@@ -1,6 +1,9 @@
 class ApplicationController < ActionController::Base
   before_action :set_raven_context
 
+  # TODO: fix it later
+  skip_before_action :verify_authenticity_token
+
   rescue_from Exception, with: :error_handler
 
   protected
