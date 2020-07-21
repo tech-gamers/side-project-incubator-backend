@@ -9,6 +9,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-class User < ApplicationRecord
-  has_many :auths, dependent: :destroy
+class UserSerializer < ActiveModel::Serializer
+  attributes :id,
+             :name,
+             :email,
+             :avatar_url,
+             :created_at
 end

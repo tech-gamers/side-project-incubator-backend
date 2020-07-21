@@ -29,6 +29,10 @@ module Backend
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    # Errors
+    # https://stackoverflow.com/a/37174557/2214973
+    # config.exceptions_app = routes
+
     # Hosts
     config.hosts << "localhost"
     config.hosts << "api.tech-gamers.live"
@@ -38,12 +42,6 @@ module Backend
 
     # Logging
     config.log_level = ENV.fetch('LOG_LEVEL', :debug)
-
-    # Monitoring
-    Raven.configure do |config|
-      config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)
-      config.sanitize_fields = Rails.application.config.filter_parameters.map(&:to_s)
-    end
 
     # Tests
     config.generators.system_tests = nil
