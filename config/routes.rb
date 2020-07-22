@@ -1,22 +1,29 @@
 Rails.application.routes.draw do
-  def api_resources(res, *args, &block)
-    defaults = {
-      format: :json,
-      only: %i[index show create update destroy]
-    }
-    # this will be changed in Rails 6.1
-    if args.length.positive? && args.last.is_a?(Hash)
-      args[-1] = defaults.merge(args.last)
-    else
-      args << defaults
+  %i[resource resources].each do |resource|
+    define_singleton_method("api_#{resource}") do |res, *args, &block|
+      defaults = {
+        format: :json,
+        only: %i[index show create update destroy]
+      }
+      # last-arg-as-options will be changed in Rails 6.1
+      if args.length.positive? && args.last.is_a?(Hash)
+        args[-1] = defaults.merge(args.last)
+      else
+        args << defaults
+      end
+      send(resource, res, *args, &block)
     end
-    resources res, *args, &block
+  end
+
+  namespace :auth do
+    get '/:provider/callback', to: '/sessions#create', as: 'callback'
+  end
+
+  api_resource :user, controller: :user, only: %i[show update destroy] do
+    api_resources :sessions, only: %i[index create destroy]
   end
 
   api_resources :users do
-    collection do
-      get :current
-    end
     api_resources :auths, only: %i[index create destroy]
   end
 

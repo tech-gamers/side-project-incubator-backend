@@ -85,6 +85,9 @@ module Backend
         ]
       }
     end
+    config.middleware.use OmniAuth::Builder do
+      provider :developer if Rails.env.development?
+    end
 
     # Tests
     config.generators.system_tests = nil
