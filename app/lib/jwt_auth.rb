@@ -32,7 +32,7 @@ class JwtAuth
       @pub_key
     end
 
-    def sign(user, valid_since = Time.current)
+    def sign(user, valid_since: Time.current)
       auth = Auth.for_jwt(user)
       payload = {
         data: {
