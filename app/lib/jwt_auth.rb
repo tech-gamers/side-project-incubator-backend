@@ -23,12 +23,11 @@ class JwtAuth
     end
 
     def pub_key
-      pri_key
       if @pub_key
         return @pub_key
       end
 
-      @pub_key = OpenSSL::PKey::EC.new(@pri_key)
+      @pub_key = OpenSSL::PKey::EC.new(pri_key)
       @pub_key.private_key = nil
       @pub_key
     end
@@ -49,12 +48,12 @@ class JwtAuth
       payload, _headers = JWT.decode(token, pub_key, true, { algorithm: ALGO })
       id = payload.dig('data', 'id')
       Auth.find_by(id: id)
-    rescue JWT::VerificationError
-      "invalid signature"
     rescue JWT::ExpiredSignature
       "token expired"
     rescue JWT::ImmatureSignature
       "token not valid yet"
+    rescue JWT::VerificationError
+      "invalid signature"
     rescue JWT::DecodeError
       "bad token"
     end
