@@ -1,25 +1,30 @@
 module Authentication
-  delegate :authenticate!,
-           :authenticated?,
+  delegate :authenticated?,
            to: :warden
 
-  def login(user)
-    auth = Auth.for_jwt(user)
+  def authenticate!
+    warden.authenticate!
+    current_auth.track_login!(request)
+  end
+
+  def login(auth)
     warden.set_user(auth)
     auth.track_login!(request)
   end
 
   def logout
     if authenticated?
-      current_auth.track_logout!
+      current_auth.track_logout!(request)
       warden.logout(current_auth)
     end
   end
 
+  # @return [Auth]
   def current_auth
     @current_auth ||= warden.user
   end
 
+  # @return [User]
   def current_user
     @current_user ||= current_auth&.user
   end

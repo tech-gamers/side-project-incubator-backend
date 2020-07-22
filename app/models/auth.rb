@@ -63,17 +63,26 @@ class Auth < ApplicationRecord
   }
 
   def track_login!(request)
+    self.failed_attempts = 0
+    self.current_sign_in_at ||= Time.current
+    self.current_sign_in_ip ||= request.remote_ip
+    if changes.present?
+      self.sign_in_count += 1
+    end
+    save!
+  end
+
+  def track_logout!(request)
     update!(
-      current_sign_in_at: Time.current,
-      current_sign_in_ip: request.remote_ip,
-      sign_in_count: sign_in_count + 1
+      current_sign_in_at: nil,
+      current_sign_in_ip: nil,
+      last_sign_in_at: current_sign_in_at || Time.current,
+      last_sign_in_ip: current_sign_in_ip || request.remote_ip
     )
   end
 
-  def track_logout!
-    update!(
-      last_sign_in_at: current_sign_in_at,
-      last_sign_in_ip: current_sign_in_ip
-    )
+  def track_failed_attempts!
+    self.failed_attempts += 1
+    save!
   end
 end

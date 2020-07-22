@@ -16,11 +16,11 @@ Rails.application.routes.draw do
   end
 
   namespace :auth do
-    get '/:provider/callback', to: '/sessions#create', as: 'callback'
+    post '/:provider/callback', to: '/sessions#create', as: 'callback'
   end
 
   api_resource :user, controller: :user, only: %i[show update destroy] do
-    api_resources :sessions, only: %i[index create destroy]
+    api_resource :session, only: %i[show destroy]
   end
 
   api_resources :users do

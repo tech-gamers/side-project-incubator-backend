@@ -17,7 +17,9 @@ class ApplicationController < ActionController::API
     result = {}
     case err
     when ActiveRecord::RecordNotFound
-      result[:status] = 404
+      result[:status] = :not_found
+    when ActionController::MissingExactTemplate
+      result[:status] = :not_implemented
     end
     if result.present?
       render({ json: {} }.merge(result))
