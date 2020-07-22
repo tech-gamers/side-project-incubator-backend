@@ -49,14 +49,14 @@ class JwtAuth
       payload, _headers = JWT.decode(token, pub_key, true, { algorithm: ALGO })
       id = payload.dig('data', 'id')
       Auth.find_by(id: id)
-    rescue JWT::DecodeError
-      "bad token"
     rescue JWT::VerificationError
       "invalid signature"
     rescue JWT::ExpiredSignature
       "token expired"
     rescue JWT::ImmatureSignature
       "token not valid yet"
+    rescue JWT::DecodeError
+      "bad token"
     end
   end
 end
