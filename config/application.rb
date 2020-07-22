@@ -72,7 +72,18 @@ module Backend
     config.middleware.use ActionDispatch::Session::CacheStore
     config.middleware.use Warden::Manager do |m|
       m.default_strategies :jwt
-      m.failure_app = UnauthorizedController
+      m.failure_app = proc { |env|
+        [
+          '401',
+          { 'Content-Type' => 'application/json' },
+          [
+            {
+              error: env['warden'].message || 'Unauthorized',
+              code: 401
+            }.to_json
+          ]
+        ]
+      }
     end
 
     # Tests

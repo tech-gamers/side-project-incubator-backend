@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   end
 
   api_resources :users do
+    collection do
+      get :current
+    end
     api_resources :auths, only: %i[index create destroy]
   end
 
