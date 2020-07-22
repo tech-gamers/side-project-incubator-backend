@@ -34,14 +34,7 @@ module Backend
     # config.exceptions_app = routes
 
     # API
-    config.middleware.insert_before 0, Rack::Cors do
-      allow do
-        origins '*'
-        resource '*',
-                 headers: :any,
-                 methods: %i[get patch put delete post options]
-      end
-    end
+    config.api_only = true
 
     # Hosts
     config.hosts << "localhost"
@@ -52,6 +45,35 @@ module Backend
 
     # Logging
     config.log_level = ENV.fetch('LOG_LEVEL', :debug)
+
+    # Middlewares
+    config.middleware.insert_before 0, Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 methods: %i[get patch put delete post options]
+      end
+    end
+    config.cache_store = :redis_cache_store, {
+      url: ENV.fetch('REDIS_URL', 'redis://redis'),
+      connect_timeout: 20,
+      read_timeout: 0.2,
+      write_timeout: 0.2,
+      reconnect_attempts: 1,
+      error_handler: lambda { |method:, returning:, exception:|
+        Reporter.capture_exception(
+          exception,
+          level: 'warning',
+          tags: { method: method, returning: returning }
+        )
+      }
+    }
+    config.middleware.use ActionDispatch::Session::CacheStore
+    config.middleware.use Warden::Manager do |m|
+      m.default_strategies :jwt
+      m.failure_app = UnauthorizedController
+    end
 
     # Tests
     config.generators.system_tests = nil

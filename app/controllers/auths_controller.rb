@@ -1,5 +1,15 @@
 class AuthsController < ApplicationController
-  before_action :authenticate
+  before_action :authenticate!, except: %i[create]
+
+  def create
+    if Rails.env.development?
+      user = User.find(params[:user_id])
+      token = JwtAuth.sign(user)
+      render json: { user_id: user.id, id: Auth.for_jwt(user).id, token: token }
+    else
+      render json: {}, status: :forbidden
+    end
+  end
 
   def index
     @user = User.find(params[:user_id])
@@ -7,11 +17,15 @@ class AuthsController < ApplicationController
   end
 
   def destroy
-    @auth = Auth.find(params[:id])
-    if @auth.user_id != current_auth.user_id
-      render json: :forbidden
+    auth = Auth.find(params[:id])
+    if auth.user_id == current_user.id
+      if auth.id == current_auth.id
+        logout
+      end
+      auth.destroy
+      render json: {}, status: :no_content
+    else
+      render json: {}, status: :forbidden
     end
-    @auth.destroy!
-    render status: :no_content
   end
 end

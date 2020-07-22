@@ -14,7 +14,7 @@ class Reporter
 
     if Rails.env.development?
       def capture_exception(err)
-        logger.error(err.message)
+        logger.error("#{err.class}: #{err.message}")
         err.backtrace.each { |l| logger.debug(l) }
       end
 

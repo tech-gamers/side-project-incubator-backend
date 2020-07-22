@@ -7,7 +7,6 @@
 #  current_sign_in_at :datetime
 #  current_sign_in_ip :inet
 #  email              :string           default(""), not null
-#  encrypted_password :string
 #  failed_attempts    :integer          default(0), not null
 #  last_sign_in_at    :datetime
 #  last_sign_in_ip    :inet
@@ -22,7 +21,7 @@
 #
 # Indexes
 #
-#  index_auths_on_email    (email) UNIQUE
+#  index_auths_on_email    (email)
 #  index_auths_on_user_id  (user_id)
 #
 # Foreign Keys
@@ -30,12 +29,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Auth < ApplicationRecord
-  # database_auth is only to provide session
-  devise :database_authenticatable,
-         :omniauthable,
-         :timeoutable,
-         :trackable # allow signing up new users
-
   class << self
     def from_github(data, user: nil)
       where(provider: data.provider, uid: data.uid).first_or_create! do |auth|
@@ -48,6 +41,10 @@ class Auth < ApplicationRecord
         auth.email = data.info.email
         auth.avatar_url = data.info.image
       end
+    end
+
+    def for_jwt(user)
+      find_or_create_by!(provider: :jwt, user: user)
     end
   end
 
@@ -64,4 +61,19 @@ class Auth < ApplicationRecord
     user.email ||= email
     user.avatar_url ||= avatar_url
   }
+
+  def track_login!(request)
+    update!(
+      current_sign_in_at: Time.current,
+      current_sign_in_ip: request.remote_ip,
+      sign_in_count: sign_in_count + 1
+    )
+  end
+
+  def track_logout!
+    update!(
+      last_sign_in_at: current_sign_in_at,
+      last_sign_in_ip: current_sign_in_ip
+    )
+  end
 end

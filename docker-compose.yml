@@ -32,8 +32,13 @@ services:
   redis:
     container_name: redis
     image: redis
+    ports:
+      - 6379:6379
     networks:
       - webnet
+    volumes:
+      - ./redis.conf:/redis.conf
+    command: ["redis-server", "/redis.conf"]
 
   postgres:
     container_name: postgres

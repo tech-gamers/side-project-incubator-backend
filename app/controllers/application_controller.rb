@@ -1,18 +1,9 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
+  include Authentication
+
   before_action :set_raven_context
 
-  # TODO: fix it later
-  skip_before_action :verify_authenticity_token
-
   rescue_from Exception, with: :error_handler
-
-  protected
-
-  def authenticate
-    unless auth_signed_in?
-      render json: {}, status: :unauthorized
-    end
-  end
 
   private
 

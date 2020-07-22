@@ -7,7 +7,6 @@
 #  current_sign_in_at :datetime
 #  current_sign_in_ip :inet
 #  email              :string           default(""), not null
-#  encrypted_password :string
 #  failed_attempts    :integer          default(0), not null
 #  last_sign_in_at    :datetime
 #  last_sign_in_ip    :inet
@@ -22,7 +21,7 @@
 #
 # Indexes
 #
-#  index_auths_on_email    (email) UNIQUE
+#  index_auths_on_email    (email)
 #  index_auths_on_user_id  (user_id)
 #
 # Foreign Keys

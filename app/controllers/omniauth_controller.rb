@@ -1,4 +1,4 @@
-class OmniauthController < Devise::OmniauthCallbacksController
+class OmniauthController < ApplicationController
   def github
     @auth = Auth.from_github(request.env['omniauth.auth'])
     sign_in(@auth)

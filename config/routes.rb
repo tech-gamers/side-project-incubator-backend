@@ -13,16 +13,8 @@ Rails.application.routes.draw do
     resources res, *args, &block
   end
 
-  devise_for :auths,
-             controllers: {
-               omniauth_callbacks: 'omniauth',
-               sessions: 'sessions'
-             }
-
-  delete 'logout', to: 'sessions#destroy'
-
   api_resources :users do
-    api_resources :auths, only: %i[index destroy]
+    api_resources :auths, only: %i[index create destroy]
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all
