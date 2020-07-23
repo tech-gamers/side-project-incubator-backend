@@ -2,10 +2,15 @@ class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
   protect_from_forgery with: :exception, only: %i[create]
 
+  PROVIDERS = %i[github developer].freeze
+
   def create
-    send(params[:provider])
-  rescue NoMethodError
-    render json: {}, status: :not_implemented
+    action = params[:provider]
+    if PROVIDERS.include?(action)
+      send(action)
+    else
+      render json: {}, status: :not_implemented
+    end
   end
 
   def show
