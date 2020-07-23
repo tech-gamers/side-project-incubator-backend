@@ -37,6 +37,7 @@ class AuthSerializer < ActiveModel::Serializer
              :email,
              :avatar_url,
              :created_at,
+             :sign_in_count,
              :current_sign_in_at,
              :current_sign_in_ip,
              :last_sign_in_at,
