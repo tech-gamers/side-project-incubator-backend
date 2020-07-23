@@ -1,5 +1,10 @@
 class AuthsController < ApplicationController
-  before_action :authenticate!, except: %i[create]
+  before_action :authenticate!, except: %i[handshake create]
+
+  # To set CSRF token before signup
+  def handshake
+    render json: { message: 'CSRF token set' }
+  end
 
   def create
     if Rails.env.development?

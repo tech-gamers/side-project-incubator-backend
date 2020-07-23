@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   namespace :auth do
+    post '/handshake', to: '/auths#handshake'
     post '/:provider/callback', to: '/sessions#create', as: 'callback'
   end
 
