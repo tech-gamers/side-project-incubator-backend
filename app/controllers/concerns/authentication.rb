@@ -8,6 +8,9 @@ module Authentication
   end
 
   def login(auth)
+    # To prevent "session fixation attacks"
+    # https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf
+    reset_session
     warden.set_user(auth)
     auth.track_login!(request)
   end
