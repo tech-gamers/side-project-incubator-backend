@@ -96,8 +96,14 @@ module Backend
       }
     end
     ## OAuth2
+    env = Rails.env.production? ? :prod : :dev
     config.middleware.use OmniAuth::Builder do
-      provider :developer # if Rails.env.development?
+      provider :developer if Rails.env.development?
+      unless Rails.env.test?
+        provider :github,
+                 Rails.application.credentials&.github&.dig(:oauth, env, :id),
+                 Rails.application.credentials&.github&.dig(:oauth, env, :secret)
+      end
     end
 
     # Tests

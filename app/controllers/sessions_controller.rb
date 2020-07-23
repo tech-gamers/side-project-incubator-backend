@@ -20,6 +20,12 @@ class SessionsController < ApplicationController
 
   private
 
+  def github
+    auth = Auth.from_github(auth_hash)
+    login(auth)
+    render json: {}, status: :no_content
+  end
+
   # We sign a token that will immediately expire.
   # Only use it to debug the headers.
   def developer
@@ -27,10 +33,8 @@ class SessionsController < ApplicationController
       return render json: { error: "email not found" }, status: :not_found
     end
 
-    token = JwtAuth.sign(user, duration: 0.seconds)
     auth = Auth.find_or_create_by!(user: user, provider: :developer)
-    login(auth)
-    set_cookie('jwt', token)
+    login(auth, duration: 0.seconds)
     render json: {}, status: :no_content
   end
 
