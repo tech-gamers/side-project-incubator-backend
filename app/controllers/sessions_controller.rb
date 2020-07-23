@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
   protect_from_forgery with: :exception, only: %i[destroy]
 
-  PROVIDERS = %i[github developer].freeze
+  PROVIDERS = %w[github developer].freeze
 
   def create
     action = params[:provider]
