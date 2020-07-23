@@ -16,6 +16,7 @@ module Authentication
     if authenticated?
       current_auth.track_logout!(request)
       warden.logout(current_auth)
+      reset_session
     end
   end
 

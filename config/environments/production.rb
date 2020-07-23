@@ -10,11 +10,6 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  config.session_store :cookie_store,
-                       key: Rails.application.secret_key_base,
-                       domain: :all,
-                       tld_length: 2
-
   # Monitoring
   Raven.configure do |config|
     config.dsn = Rails.application.credentials&.sentry&.dig(:dsn)

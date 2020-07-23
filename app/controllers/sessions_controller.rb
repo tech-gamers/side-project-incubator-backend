@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
 
+  # TODO: CSRF guard POST /auth/:provider
   def create
     send(params[:provider])
   rescue NoMethodError
@@ -27,7 +28,10 @@ class SessionsController < ApplicationController
         "name": "demo",
         "email": "demo@demo.com"
       },
-      "credentials": {},
+      "credentials": {
+        "token": nil,
+        "secret": nil
+      },
       "extra": {}
     }
   end

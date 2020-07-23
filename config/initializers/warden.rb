@@ -1,5 +1,12 @@
+Warden::Manager.serialize_into_session do |auth|
+  auth.id
+end
+
+Warden::Manager.serialize_from_session do |id|
+  Auth.find_by(id: id)
+end
+
 Warden::Strategies.add(:jwt) do
-  # TODO: https://devise-token-auth.gitbook.io/devise-token-auth/usage/controller_methods#token-header-format
   def valid?
     params['token'].present?
   end

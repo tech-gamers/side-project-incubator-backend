@@ -47,6 +47,7 @@ module Backend
     config.log_level = ENV.fetch('LOG_LEVEL', :debug)
 
     # Middlewares
+    ## CORS
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
@@ -55,6 +56,7 @@ module Backend
                  methods: %i[get patch put delete post options]
       end
     end
+    ## Cache
     config.cache_store = :redis_cache_store, {
       url: ENV.fetch('REDIS_URL', 'redis://redis'),
       connect_timeout: 20,
@@ -69,7 +71,15 @@ module Backend
         )
       }
     }
-    config.middleware.use ActionDispatch::Session::CacheStore
+    ## Session
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore,
+                          key: '_SPI_session',
+                          secure: Rails.env.production?,
+                          expire_after: 14.days,
+                          domain: :all,
+                          tld_length: 2
+    ## Authentication
     config.middleware.use Warden::Manager do |m|
       m.default_strategies :jwt
       m.failure_app = proc { |env|
@@ -85,6 +95,7 @@ module Backend
         ]
       }
     end
+    ## OAuth2
     config.middleware.use OmniAuth::Builder do
       provider :developer if Rails.env.development?
     end

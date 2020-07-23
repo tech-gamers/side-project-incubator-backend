@@ -20,6 +20,10 @@ class ApplicationController < ActionController::API
       result[:status] = :not_found
     when ActionController::MissingExactTemplate
       result[:status] = :not_implemented
+    when ActionController::InvalidAuthenticityToken
+      result[:status] = :unprocessable_entity
+      result[:json] = { error: "invalid authentication token" }
+      # signout
     end
     if result.present?
       render({ json: {} }.merge(result))
@@ -30,7 +34,7 @@ class ApplicationController < ActionController::API
   end
 
   def set_raven_context
-    Raven.user_context(id: current_auth&.user_id)
+    Raven.user_context(id: current_user&.id)
     Raven.extra_context(
       auth_id: current_auth&.id,
       params: params.to_unsafe_h,
