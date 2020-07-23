@@ -5,14 +5,16 @@ class JwtAuth
     EXP = 2.weeks
     DEV_PEM_PATH = Rails.root.join('tmp/jwt.pem')
 
-    def sign(user, valid_since: Time.current)
+    # @example
+    #   sign(user, valid_since: Time.current, duration: 1.week)
+    def sign(user, valid_since: Time.current, duration: EXP)
       auth = Auth.for_jwt(user)
       payload = {
         data: {
           id: auth.id
         },
         nbf: valid_since.to_i,
-        exp: (valid_since + EXP).to_i
+        exp: (valid_since + duration).to_i
       }
       JWT.encode(payload, pri_key, ALGO)
     end
