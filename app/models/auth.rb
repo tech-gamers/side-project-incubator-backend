@@ -7,7 +7,6 @@
 #  current_sign_in_at :datetime
 #  current_sign_in_ip :inet
 #  email              :string           default(""), not null
-#  encrypted_password :string
 #  failed_attempts    :integer          default(0), not null
 #  last_sign_in_at    :datetime
 #  last_sign_in_ip    :inet
