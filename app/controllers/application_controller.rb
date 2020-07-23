@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::API
   include Authentication
+  include CsrfProtection
+  include ActionController::Cookies
 
   before_action :set_raven_context
 
