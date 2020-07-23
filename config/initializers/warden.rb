@@ -8,11 +8,11 @@ end
 
 Warden::Strategies.add(:jwt) do
   def valid?
-    params['token'].present?
+    request.cookies['jwt'].present?
   end
 
   def authenticate!
-    case (auth_or_error = JwtAuth.authenticate_auth(params['token']))
+    case (auth_or_error = JwtAuth.authenticate_auth(request.cookies['jwt']))
     when Auth
       success!(auth_or_error)
     else

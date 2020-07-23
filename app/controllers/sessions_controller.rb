@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, only: %i[create]
 
   def create
     send(params[:provider])
