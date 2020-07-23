@@ -4,7 +4,7 @@ class AuthsController < ApplicationController
   # To set CSRF header for login
   # https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf
   def handshake
-    render json: {}
+    render json: {}, status: :no_content
   end
 
   def create

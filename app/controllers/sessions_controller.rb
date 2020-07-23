@@ -1,6 +1,5 @@
 class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
-  protect_from_forgery with: :exception, only: %i[create]
 
   PROVIDERS = %i[github developer].freeze
 
