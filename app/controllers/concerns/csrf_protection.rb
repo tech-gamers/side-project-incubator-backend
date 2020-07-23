@@ -10,6 +10,6 @@ module CsrfProtection
   protected
 
   def set_csrf_cookie
-    set_cookie('csrf_token', form_authenticity_token)
+    response.headers['X-CSRF-Token'] = form_authenticity_token
   end
 end

@@ -1,9 +1,10 @@
 class AuthsController < ApplicationController
   before_action :authenticate!, except: %i[handshake create]
 
-  # To set CSRF token before signup
+  # To set CSRF header for login
+  # https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf
   def handshake
-    render json: { message: 'CSRF token set' }
+    render json: {}
   end
 
   def create
