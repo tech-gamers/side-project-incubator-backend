@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   include CsrfProtection
   include ActionController::Cookies
 
+  protect_from_forgery with: :exception
   before_action :set_raven_context
 
   rescue_from Exception, with: :error_handler

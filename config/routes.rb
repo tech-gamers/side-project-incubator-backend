@@ -25,7 +25,7 @@ Rails.application.routes.draw do
   end
 
   api_resources :users do
-    api_resources :auths, only: %i[index create destroy]
+    api_resources :auths, only: %i[index destroy]
   end
 
   match '*unmatched', to: 'errors#not_found', via: :all
