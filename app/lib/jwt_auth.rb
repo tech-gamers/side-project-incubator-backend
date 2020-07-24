@@ -54,8 +54,6 @@ class JwtAuth
         Auth.find_by(id: id)&.track_failed_attempts!
         true
       end
-    rescue TypeError # Time.parse
-      true
     end
 
     def revoke_key(id)
