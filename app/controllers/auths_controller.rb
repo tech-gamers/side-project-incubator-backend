@@ -8,6 +8,11 @@ class AuthsController < ApplicationController
     render json: {}, status: :no_content
   end
 
+  def create
+    token = JwtAuth.sign(current_user)
+    render json: { access_token: token }
+  end
+
   def index
     @user = User.find(params[:user_id])
     render json: @user.auths, each_serializer: AuthSerializer
