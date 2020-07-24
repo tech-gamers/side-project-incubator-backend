@@ -7,13 +7,11 @@ module Authentication
     current_auth.track_login!(request)
   end
 
-  def login(auth, opts = {})
+  def login(auth, _opts = {})
     # To prevent "session fixation attacks"
     # https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html#login-csrf
     reset_session
     warden.set_user(auth)
-    token = JwtAuth.sign(auth.user, opts)
-    set_cookie('jwt', token)
     auth.track_login!(request)
   end
 
