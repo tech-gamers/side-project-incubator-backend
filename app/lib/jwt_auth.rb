@@ -2,7 +2,7 @@ class JwtAuth
   class << self
     CURVE = 'prime256v1'.freeze
     ALGO = 'ES256'.freeze
-    EXP = 2.weeks
+    EXP = 2.months
     DEV_PEM_PATH = Rails.root.join('tmp/jwt.pem')
 
     # @example
