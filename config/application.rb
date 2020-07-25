@@ -54,7 +54,7 @@ module Backend
         resource '*',
                  headers: :any,
                  methods: %i[get patch put delete post options head],
-                 expose: %w[X-CSRF-Token]
+                 expose: %w[X-CSRF-Token Set-Cookie]
       end
     end
     ## Cache
