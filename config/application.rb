@@ -50,11 +50,14 @@ module Backend
     ## CORS
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins '*'
+        origins '*',
+                'http://localhost:3000',
+                'https://alpha.tech-gamers.live',
+                'https://tech-gamers.live'
         resource '*',
                  headers: :any,
                  methods: %i[get patch put delete post options head],
-                 expose: %w[X-CSRF-Token Set-Cookie]
+                 expose: %w[X-CSRF-Token]
       end
     end
     ## Cache
