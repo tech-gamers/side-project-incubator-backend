@@ -56,8 +56,11 @@ module Backend
         resource '*',
                  headers: :any,
                  methods: %i[get patch put delete post options head],
-                 expose: %w[X-CSRF-Token]
+                 expose: %w[X-CSRF-Token],
+                 credentials: true
       end
+
+      # TODO: allow '*' for API users
     end
     ## Cache
     config.cache_store = :redis_cache_store, {
