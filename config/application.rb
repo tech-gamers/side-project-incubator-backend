@@ -84,7 +84,8 @@ module Backend
                           secure: Rails.env.production?,
                           expire_after: 14.days,
                           domain: :all,
-                          tld_length: 2
+                          tld_length: 2,
+                          same_site: :none
     ## Authentication
     config.middleware.use Warden::Manager do |m|
       m.default_strategies :jwt
