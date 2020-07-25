@@ -53,7 +53,8 @@ module Backend
         origins '*'
         resource '*',
                  headers: :any,
-                 methods: %i[get patch put delete post options]
+                 methods: %i[get patch put delete post options head],
+                 expose: %w[X-CSRF-Token]
       end
     end
     ## Cache
