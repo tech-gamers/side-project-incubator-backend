@@ -29,7 +29,7 @@ class SessionsController < ApplicationController
   def github
     auth = Auth.from_github(auth_hash)
     login(auth)
-    redirect_to "https://alpha.tech-gamers.live/users/#{auth.user_id}"
+    redirect_to "https://tech-gamers.live/users/#{auth.user_id}"
   end
 
   # We sign a token that will immediately expire.
