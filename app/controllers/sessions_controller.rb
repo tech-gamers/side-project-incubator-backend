@@ -4,7 +4,6 @@ class SessionsController < ApplicationController
 
   PROVIDERS = %w[github developer].freeze
 
-  # TODO: do not allow public access to this endpoint
   def create
     action = params[:provider]
     if PROVIDERS.include?(action)
