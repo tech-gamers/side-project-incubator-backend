@@ -1,6 +1,5 @@
 module ActionController
   module RequestForgeryProtection
-    # TODO: monkey-patch the original method
     # rubocop:disable Metrics/AbcSize
     def verified_request?
       unless protect_against_forgery?
@@ -14,7 +13,7 @@ module ActionController
       unless valid_request_origin?
         Rails.logger.info("CSRF origin not valid")
         Rails.logger.debug("request.origin=#{request.origin}")
-        Rails.logger.debug("request.baseurl=#{request.baseurl}")
+        Rails.logger.debug("request.baseurl=#{request.base_url}")
         return false
       end
       if any_authenticity_token_valid?
