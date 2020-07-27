@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     end
   end
 
+  root to: 'static#index'
+
   namespace :auth do
     post '/handshake', to: '/auths#handshake'
     get '/:provider/callback', to: '/sessions#create', as: 'callback'
