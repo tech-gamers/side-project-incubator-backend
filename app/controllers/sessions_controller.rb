@@ -1,9 +1,10 @@
 class SessionsController < ApplicationController
   before_action :authenticate!, except: %i[create]
-  protect_from_forgery with: :exception, only: %i[destroy]
+  protect_from_forgery with: :exception, except: %i[create]
 
   PROVIDERS = %w[github developer].freeze
 
+  # TODO: do not allow public access to this endpoint
   def create
     action = params[:provider]
     if PROVIDERS.include?(action)
@@ -28,7 +29,7 @@ class SessionsController < ApplicationController
   def github
     auth = Auth.from_github(auth_hash)
     login(auth)
-    render json: {}, status: :no_content
+    redirect_to "https://alpha.tech-gamers.live/users/#{auth.user_id}"
   end
 
   # We sign a token that will immediately expire.

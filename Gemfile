@@ -35,6 +35,7 @@ gem 'jwt'
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-rails_csrf_protection', '~> 0.1'
+gem 'public_suffix'
 gem 'warden'
 
 # Caching

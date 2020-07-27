@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   namespace :auth do
     post '/handshake', to: '/auths#handshake'
-    post '/:provider/callback', to: '/sessions#create', as: 'callback'
+    get '/:provider/callback', to: '/sessions#create', as: 'callback'
   end
 
   api_resource :user, controller: :user, only: %i[show update destroy] do
